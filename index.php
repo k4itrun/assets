@@ -3,6 +3,10 @@
   Source Code Owner: https://github.com/arturssmirnovs
   Current Code Owner: https://github.com/k4itrun. 
   Author: k4itrun
+  Github : https://github.com/k4itrun
+  Email : k4itrun@6889.fun
+  Messenger : https//m.me/k4itrun
+  Date : 5-10-2023
 */
 
 /*
