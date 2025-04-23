@@ -31,6 +31,7 @@ lib/
 public/
 .contentlayer/
 next*.d.ts
+updater
 
 # Coverage and test outputs
 coverage/
