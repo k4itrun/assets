@@ -13,9 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        go: []
-        include:
-          - go: 'stable'
+        go: ['stable']
     permissions:
       contents: write
       issues: write
