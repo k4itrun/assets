@@ -1,0 +1,59 @@
+name: 'Update readme'
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    strategy:
+      fail-fast: false
+      matrix:
+        go: []
+        include:
+          - go: 'stable'
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+      actions: write
+      packages: write
+      deployments: write
+      discussions: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go ${{ matrix.go }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Check
+        run: go version
+  
+      - name: Build
+        run: go build -o updater main.go
+
+      - name: Generate README.md
+        run: ./updater
+
+      - name: Save changes
+        run: |
+          if [[ "$(git status --porcelain)" != "" ]]; then
+            NAME="k4itrunBot"
+            EMAIL_ID="153697070"
+            EMAIL_DOMAIN="users.noreply.github.com"
+            EMAIL="${EMAIL_ID}+${NAME}@${EMAIL_DOMAIN}"
+            TIMESTAMP=$(date +"%a %b %d %H:%M:%S %Y %z" | tr '[:upper:]' '[:lower:]')
+            git config --local user.name "$NAME"
+            git config --local user.email "$EMAIL"
+            git add -A
+            git commit -m "chore(bot): update readme - updated at: $TIMESTAMP"
+            git push --force
+          fi
