@@ -8,7 +8,7 @@ import (
 
 func main() {
 	readme := "README.md"
-	content := fmt.Sprintf("# Test\n\nUpdated at: %s\n", time.Now().Format(time.RFC1123))
+	content := fmt.Sprintf("# 📂 All my ~/assents [2022]\n\nUpdated at: %s\n", time.Now().Format(time.RFC1123))
 
 	err := os.WriteFile(readme, []byte(content), 0644)
 	if err != nil {
