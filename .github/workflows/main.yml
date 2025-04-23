@@ -8,10 +8,21 @@ on:
 jobs:
   update-readme:
     runs-on: ubuntu-latest
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       fail-fast: false
       matrix:
         go: ['stable']
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+      actions: write
+      packages: write
+      deployments: write
+      discussions: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
