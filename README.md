@@ -1,21 +1,21 @@
 # 📁 All my ~/assents
 
-Last update: 23/04/2025 20:54:13
+Last update: 24/04/2025 02:05:55
 
 ## 📊 Statistics
-- Directories: 127
-- Archives: 294
-- Total size: 489.5 MB
+- Directories: 27
+- Archives: 166
+- Total size: 401.8 MB
 
 ## 🌳 Directory Tree
 ```
 ├── 📄 CONTRIBUTING.md (3.2 KB)
-├── 📄 README.md (7.5 KB)
+├── 📄 README.md (7.6 KB)
 ├── 📂 audios
-│   └── 📄 placeholder (2 B)
+│   └── 📄 placeholder (1 B)
 ├── 📂 images
-│   ├── 📄 186171024957441-v.png (32.5 KB)
-│   └── 📄 placeholder (2 B)
+│   ├── 🖼️ 186171024957441-v.png (32.5 KB)
+│   └── 📄 placeholder (1 B)
 ├── 📄 license.md (1.0 KB)
 ├── 🐹 main.go (5.2 KB)
 ├── 📂 ngrok
@@ -24,16 +24,17 @@ Last update: 23/04/2025 20:54:13
 │   ├── 🗜️ ngrok-stable-linux-386.zip (12.9 MB)
 │   ├── 🗜️ ngrok-stable-linux-amd64.zip (13.2 MB)
 │   ├── 🗜️ ngrok-stable-linux-arm.zip (12.4 MB)
-│   ├── 📄 ngrok-stable-linux-arm64.tgz (12.4 MB)
+│   ├── 🗜️ ngrok-stable-linux-arm64.tgz (12.4 MB)
 │   ├── 🗜️ ngrok-v3-stable-darwin-amd64.zip (7.3 MB)
 │   ├── 🗜️ ngrok-v3-stable-darwin-arm64.zip (6.9 MB)
-│   ├── 📄 ngrok-v3-stable-linux-386.tgz (6.6 MB)
-│   ├── 📄 ngrok-v3-stable-linux-amd64.tgz (6.9 MB)
-│   ├── 📄 ngrok-v3-stable-linux-arm.tgz (6.5 MB)
-│   ├── 📄 ngrok-v3-stable-linux-arm64.tgz (6.4 MB)
-│   └── 📄 placeholder (59 B)
+│   ├── 🗜️ ngrok-v3-stable-linux-386.tgz (6.6 MB)
+│   ├── 🗜️ ngrok-v3-stable-linux-amd64.tgz (6.9 MB)
+│   ├── 🗜️ ngrok-v3-stable-linux-arm.tgz (6.5 MB)
+│   ├── 🗜️ ngrok-v3-stable-linux-arm64.tgz (6.4 MB)
+│   └── 📄 placeholder (58 B)
+├── 📄 updater (2.4 MB)
 ├── 📂 videos
-│   └── 📄 placeholder (2 B)
+│   └── 📄 placeholder (1 B)
 └── 📂 websites
     ├── 📂 phishing
     │   ├── 🗜️ ALL_PHISHING_WEBSITES.zip (20.7 MB)
@@ -165,4 +166,4 @@ This project uses the MIT license. You can find the full license details in the 
 
 For any inquiries or support, you can reach out via [billoneta@proto.me](mailto:billoneta@proto.me).
 
-<sub>Generated Wed, 23 Apr 2025 20:54:13 -05</sub>
+<sub>Generated Thu, 24 Apr 2025 02:05:55 UTC</sub>
