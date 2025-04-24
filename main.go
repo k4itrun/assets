@@ -67,10 +67,10 @@ For any inquiries or support, you can reach out via [billoneta@proto.me](mailto:
 	)
 
 	if err := os.WriteFile(readmePath, []byte(content), 0644); err != nil {
-		fmt.Printf("Error escribiendo README: %v\n", err)
+		fmt.Printf("Error typing README: %v\n", err)
 		os.Exit(1)
 	}
-	fmt.Println("✅ README.md actualizado correctamente")
+	fmt.Println("README.md updated")
 }
 
 type dirStats struct {
@@ -104,14 +104,14 @@ func generateTree(path, prefix string, isLast bool, depth int) string {
 		ignored := strings.Split(ignoreDirs, ",")
 		for _, dir := range ignored {
 			if strings.TrimSpace(dir) == base {
-				return fmt.Sprintf("%s└── [IGNORADO] %s\n", prefix, base)
+				return fmt.Sprintf("%s└── [IGNORED] %s\n", prefix, base)
 			}
 		}
 	}
 
 	files, err := os.ReadDir(path)
 	if err != nil {
-		return fmt.Sprintf("%s└── ⚠️ Error de acceso\n", prefix)
+		return fmt.Sprintf("%s└── ⚠️ Access error\n", prefix)
 	}
 
 	var visibleFiles []fs.DirEntry
@@ -122,7 +122,7 @@ func generateTree(path, prefix string, isLast bool, depth int) string {
 	}
 
 	if len(visibleFiles) == 0 {
-		return fmt.Sprintf("%s└── (vacío)\n", prefix)
+		return fmt.Sprintf("%s└── (empty)\n", prefix)
 	}
 
 	for i, file := range visibleFiles {
@@ -145,7 +145,7 @@ func generateTree(path, prefix string, isLast bool, depth int) string {
 				}
 				sb.WriteString(generateTree(filepath.Join(path, file.Name()), newPrefix, isLastItem, depth+1))
 			} else if hasContent(filepath.Join(path, file.Name())) {
-				fmt.Fprintf(&sb, "%s    └── ... (contiene más archivos)\n", prefix)
+				fmt.Fprintf(&sb, "%s    └── ... (contains more files)\n", prefix)
 			}
 		} else {
 			fmt.Fprintf(&sb, "%s%s%s %s %s\n", prefix, pointer, icon, file.Name(), meta)
@@ -170,14 +170,14 @@ func getFileMetadata(file fs.DirEntry, path string) (string, string) {
 	case file.IsDir():
 		return "📂", ""
 
-	case strings.HasPrefix(file.Type().String(), "image"):
+	case ext == ".png", ext == ".jpg", ext == ".jpeg", ext == ".gif":
 		return "🖼️", fmt.Sprintf("(%s)", formatSize(size))
-	case strings.HasPrefix(file.Type().String(), "video"):
+	case ext == ".mp4", ext == ".ogg", ext == ".avi", ext == ".mkv":
 		return "🎬", fmt.Sprintf("(%s)", formatSize(size))
-	case strings.HasPrefix(file.Type().String(), "audio"):
+	case ext == ".mp3", ext == ".wav", ext == ".flac":
 		return "🎵", fmt.Sprintf("(%s)", formatSize(size))
 
-	case ext == ".zip", ext == ".rar", ext == ".7z":
+	case ext == ".zip", ext == ".rar", ext == ".7z", ext == ".tar", ext == ".tgz", ext == ".gz":
 		return "🗜️", fmt.Sprintf("(%s)", formatSize(size))
 
 	case ext == ".pdf":
