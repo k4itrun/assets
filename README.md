@@ -1,11 +1,11 @@
 # 📁 All my ~/assents
 
-Last update: 27/04/2025 01:08:07
+Last update: 28/04/2025 01:06:00
 
 ## 📊 Statistics
 - Directories: 27
-- Archives: 169
-- Total size: 409.3 MB
+- Archives: 166
+- Total size: 401.9 MB
 
 ## 🌳 Directory Tree
 ```
@@ -14,10 +14,7 @@ Last update: 27/04/2025 01:08:07
 ├── 📂 audios
 │   └── 📄 placeholder (1 B)
 ├── 📂 images
-│   ├── 🖼️ 186516968955905.jpg (1.5 MB)
-│   ├── 🖼️ 186518007971841.jpg (1.5 MB)
-│   ├── 🖼️ 186518187069441.jpg (1.5 MB)
-│   ├── 🖼️ 186519704244225.jpg (1.5 MB)
+│   ├── 🖼️ 187529620795393.png (69.8 KB)
 │   └── 📄 placeholder (1 B)
 ├── 📄 license.md (1.0 KB)
 ├── 🐹 main.go (5.2 KB)
@@ -169,4 +166,4 @@ This project uses the MIT license. You can find the full license details in the 
 
 For any inquiries or support, you can reach out via [billoneta@proto.me](mailto:billoneta@proto.me).
 
-<sub>Generated Sun, 27 Apr 2025 01:08:07 UTC</sub>
+<sub>Generated Mon, 28 Apr 2025 01:06:00 UTC</sub>
