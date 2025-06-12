@@ -8,6 +8,7 @@
 *.dylib
 *.test
 *.out
+updater
 
 # Compiled object files
 *.o
