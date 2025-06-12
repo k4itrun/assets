@@ -1,87 +1,75 @@
 name: 'URL monitor'
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
-  workflow_dispatch:
+ schedule:
+  - cron: '*/5 * * * *'
+ workflow_dispatch:
 
 env:
-  DEFAULT_URL: ${{ secrets.MONITOR_URL }}
-  MAX_RETRIES: 3
-  RETRY_DELAY: 5
-  ACCEPTED_STATUSES: '200,201,204,301,302'
+ MONITOR_URLS: ${{ secrets.MONITOR_URL }}
+ MAX_RETRIES: 3
+ RETRY_DELAY: 5
+ ACCEPTED_STATUSES: '200,201,204,301,302'
 
 jobs:
-  url-monitor:
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    steps:
-      - name: Validate monitoring URL
-        id: validate-url
-        run: |
-          if [ -z "$DEFAULT_URL" ]; then
-            echo "::error::No URL provided"
-            exit 1
-          fi
-          echo "Monitoring URL: $DEFAULT_URL"
-          echo "accepted_statuses=$ACCEPTED_STATUSES" >> $GITHUB_OUTPUT
+ url-monitor:
+  runs-on: ubuntu-latest
+  timeout-minutes: 5
+  steps:
+   - name: Split and Validate URLs
+     id: prepare
+     run: |
+      if [ -z "$MONITOR_URLS" ]; then
+        echo "::error::No URLs provided"
+        exit 1
+      fi
 
-      - name: Check URL
-        id: url-check
-        run: |
-          ATTEMPT=1
-          SUCCESS=false
-          ACCEPTED_CODES=$(echo "$ACCEPTED_STATUSES" | tr ',' '|')
+      echo "Received URLs:"
+      echo "$MONITOR_URLS"
 
-          until [ $ATTEMPT -gt $MAX_RETRIES ] || [ $SUCCESS = true ]; do
-            echo "Attempt $ATTEMPT of $MAX_RETRIES..."
-            RESPONSE=$(curl -sS -o /dev/null -w "%{http_code} %{time_total} %{size_download}" \
-                     --connect-timeout 10 \
-                     --max-time 15 \
-                     "$DEFAULT_URL")
-            
-            read STATUS_CODE LATENCY RESPONSE_SIZE <<< "$RESPONSE"
+      echo "$MONITOR_URLS" | tr ',; ' '\n' | grep -v '^$' > urls.txt
+      cat urls.txt
 
-            if [[ "$STATUS_CODE" =~ ^($ACCEPTED_CODES)$ ]]; then
-              SUCCESS=true
-              echo "status_code=$STATUS_CODE" >> $GITHUB_OUTPUT
-              echo "latency=$LATENCY" >> $GITHUB_OUTPUT
-              echo "response_size=$RESPONSE_SIZE" >> $GITHUB_OUTPUT
-            else
-              echo "::warning::Attempt $ATTEMPT failed (Status: ${STATUS_CODE:-timeout})"
-              if [ $ATTEMPT -lt $MAX_RETRIES ]; then
-                sleep $((RETRY_DELAY * ATTEMPT))
-              fi
-              ((ATTEMPT++))
+   - name: Check URLs
+     id: check
+     run: |
+      ACCEPTED_CODES=$(echo "$ACCEPTED_STATUSES" | tr ',' '|')
+
+      while IFS= read -r url; do
+        echo "Checking: $url"
+        ATTEMPT=1
+        SUCCESS=false
+
+        until [ $ATTEMPT -gt $MAX_RETRIES ] || [ $SUCCESS = true ]; do
+          echo "Attempt $ATTEMPT..."
+          RESPONSE=$(curl -sS -o /dev/null -w "%{http_code} %{time_total} %{size_download}" \
+                   --connect-timeout 10 \
+                   --max-time 15 \
+                   "$url")
+
+          read STATUS_CODE LATENCY RESPONSE_SIZE <<< "$RESPONSE"
+
+          if [[ "$STATUS_CODE" =~ ^($ACCEPTED_CODES)$ ]]; then
+            echo "$url is healthy (Status: $STATUS_CODE, Latency: ${LATENCY}s, Size: ${RESPONSE_SIZE}B)"
+            SUCCESS=true
+          else
+            echo "::warning::$url failed (Status: ${STATUS_CODE:-timeout})"
+            if [ $ATTEMPT -lt $MAX_RETRIES ]; then
+              sleep $((RETRY_DELAY * ATTEMPT))
             fi
-          done
-
-          if [ $SUCCESS = false ]; then
-            echo "::error::All attempts failed for $DEFAULT_URL"
-            exit 1
+            ((ATTEMPT++))
           fi
+        done
 
-      - name: Log
-        run: |
-          echo "URL is healthy"
-          echo "URL: $DEFAULT_URL"
-          echo "Status: ${{ steps.url-check.outputs.status_code }}"
-          echo "Latency: ${{ steps.url-check.outputs.latency }}s"
-          echo "Response size: ${{ steps.url-check.outputs.response_size }} bytes"
+        if [ $SUCCESS = false ]; then
+          echo "::error::All attempts failed for $url"
+          FAILED_URLS+=("$url")
+        fi
 
-      - name: Notify on failure
-        if: failure() && steps.url-check.outcome == 'failure'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            await github.rest.issues.createComment({
-              issue_number: 1,
-              owner,
-              repo,
-              body: `URL Monitoring Alert\n` +
-                    `URL: ${process.env.DEFAULT_URL}\n` +
-                    `Last status: ${process.env.STATUS_CODE || 'timeout'}\n` +
-                    `Timestamp: ${new Date().toISOString()}\n\n` +
-                    `View run: https://github.com/${owner}/${repo}/actions/runs/${context.runId}`
-            });
+      done < urls.txt
+
+      if [ ${#FAILED_URLS[@]} -ne 0 ]; then
+        echo "Some URLs failed:"
+        printf '%s\n' "${FAILED_URLS[@]}"
+        exit 1
+      fi
