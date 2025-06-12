@@ -1,0 +1,29 @@
+# Ensure all text files use LF
+* text=auto eol=lf
+
+# Go source files: treat as text
+*.go linguist-language=Go
+
+# Markdown files
+*.md text
+
+# YAML/JSON config files
+*.yml text
+*.yaml text
+*.json text
+
+# Make sure shell scripts and similar are treated as text
+*.sh text
+*.bash text
+
+# Ignore generated binaries and lock formatting for clarity
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.test binary
+*.out binary
+
+# Set linguist documentation classification
+README.md linguist-documentation
+license.md linguist-documentation
