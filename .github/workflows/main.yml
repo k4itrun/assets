@@ -35,8 +35,8 @@ jobs:
      run: |
       if [[ "$(git status --porcelain)" != "" ]]; then
         TIMESTAMP=$(date +"%a %b %d %H:%M:%S %Y %z" | tr '[:upper:]' '[:lower:]')
-        git config --local user.name k4itrxn
-        git config --local user.email 153697070+k4itrxn@users.noreply.github.com
+        git config --local user.name k4itrunssh
+        git config --local user.email 153697070+k4itrunssh@users.noreply.github.com
         git add -A
         git commit -m "♻️ chore(bot): update readme - updated at: $TIMESTAMP"
         git push --force
