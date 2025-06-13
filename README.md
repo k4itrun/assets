@@ -10,7 +10,7 @@
 
 | Directories | Archives | Total Size |
 | ----------- | -------- | ---------- |
-| `138`       | `311`    | `489.6 MB` |
+| `28`       | `163`    | `401.8 MB` |
 
 <!--STATS:end-->
 
@@ -20,12 +20,12 @@
 
 ```
 ├── 📄 README.md (8.7 KB)
-├── 📂 assets
-│   ├── 📂 audios
-│   │   └── 📄 placeholder (2 B)
-│   ├── 📂 images
-│   │   └── 📄 placeholder (2 B)
-│   ├── 📂 ngrok
+├── 📂 assets 
+│   ├── 📂 audios 
+│   │   └── 📄 placeholder (1 B)
+│   ├── 📂 images 
+│   │   └── 📄 placeholder (1 B)
+│   ├── 📂 ngrok 
 │   │   ├── 💼 ngrok-stable-arm64.zip (13.0 MB)
 │   │   ├── 💼 ngrok-stable-darwin-amd64.zip (13.3 MB)
 │   │   ├── 💼 ngrok-stable-linux-386.zip (12.9 MB)
@@ -38,11 +38,11 @@
 │   │   ├── 💼 ngrok-v3-stable-linux-amd64.tgz (6.9 MB)
 │   │   ├── 💼 ngrok-v3-stable-linux-arm.tgz (6.5 MB)
 │   │   ├── 💼 ngrok-v3-stable-linux-arm64.tgz (6.4 MB)
-│   │   └── 📄 placeholder (59 B)
-│   ├── 📂 videos
-│   │   └── 📄 placeholder (2 B)
-│   └── 📂 websites
-│       ├── 📂 phishing
+│   │   └── 📄 placeholder (58 B)
+│   ├── 📂 videos 
+│   │   └── 📄 placeholder (1 B)
+│   └── 📂 websites 
+│       ├── 📂 phishing 
 │       │   ├── 💼 ALL_PHISHING_WEBSITES.zip (20.7 MB)
 │       │   ├── 💼 adobe.zip (9.3 KB)
 │       │   ├── 💼 airtelsim.zip (858.1 KB)
@@ -143,16 +143,17 @@
 │       │   ├── 💼 yandex.zip (5.8 KB)
 │       │   ├── 💼 youtube.zip (5.2 KB)
 │       │   └── 💼 zomato.zip (1.6 MB)
-│       └── 📂 scam
+│       └── 📂 scam 
 │           ├── 💼 fest.zip (7.7 KB)
 │           ├── 💼 jio.zip (77.2 KB)
 │           ├── 💼 live.zip (3.1 KB)
 │           └── 💼 om.zip (4.0 KB)
-├── 📂 config
-│   └── 🐹 config.go (165 B)
+├── 📂 config 
+│   └── 🐹 config.go (152 B)
 ├── 📄 go.mod (44 B)
 ├── 📄 license.md (1.0 KB)
-└── 🐹 main.go (5.3 KB)
+├── 🐹 main.go (5.1 KB)
+└── 📄 updater (2.4 MB)
 
 ```
 
